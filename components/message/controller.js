@@ -19,9 +19,9 @@ function addMessage(user, message) {
   });
 }
 
-function listMessages() {
+function listMessages(filter) {
   return new Promise((resolve, reject) => {
-    resolve(store.list());
+    resolve(store.list(filter));
   });
 }
 

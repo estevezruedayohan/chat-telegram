@@ -20,8 +20,12 @@ function addMessage(message) {
   newMessage.save();
 }
 
-async function getMessages() {
-  const listMessages = await model.find();
+async function getMessages(filter) {
+  let optionsFilter = {};
+  if (filter != null) {
+    optionsFilter = { user: filter };
+  }
+  const listMessages = await model.find(optionsFilter);
   return listMessages;
 }
 
