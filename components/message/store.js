@@ -1,19 +1,10 @@
-// const list = [];
-const bd = require("mongoose");
 const model = require("./model");
-const { config } = require("./../../config/config");
-
-bd.Promise = global.Promise;
+const Connection = require("../../conexion");
+const { config } = require("../../config/config");
 
 const URI = `mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.dbHost}/${config.dbName}`;
 
-bd.set("strictQuery", false);
-bd.connect(URI);
-console.log("[db] Conectada con éxito");
-
-// const options = {
-//   userNewUrlParser: true,
-// };
+Connection(URI);
 
 function addMessage(message) {
   const newMessage = new model(message);
