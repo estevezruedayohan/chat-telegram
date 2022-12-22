@@ -25,4 +25,19 @@ function listMessages() {
   });
 }
 
-module.exports = { addMessage, listMessages };
+function updateMessage(id, text) {
+  return new Promise(async (resolve, reject) => {
+    if (!id || !text) {
+      reject("Datos inválidos");
+      return false;
+    }
+    const newMessage = await store.updateMessage(id, text);
+    resolve(newMessage);
+  });
+}
+
+module.exports = {
+  addMessage,
+  listMessages,
+  updateMessage,
+};

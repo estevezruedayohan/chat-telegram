@@ -21,18 +21,21 @@ router.get("/", (req, res) => {
     });
 });
 
-router.patch("/", (req, res) => {
-  if (req.query.error == "ok") {
-    response.error(
-      req,
-      res,
-      null,
-      "Error simulado",
-      "Detalles del error en router patch /"
-    );
-  } else {
-    response.success(req, res, 201, "Creado Correctamente");
-  }
+router.patch("/:id", (req, res) => {
+  controller
+    .updateMessage(req.params.id, req.body.message)
+    .then((newMessage) => {
+      response.success(req, res, 200, newMessage);
+    })
+    .catch((error) => {
+      response.error(
+        req,
+        res,
+        500,
+        error,
+        "Error inesperado"
+      );
+    });
 });
 
 router.post("/", (req, res) => {

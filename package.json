@@ -4,6 +4,7 @@
   "description": "Un chat similar al de telegram pero personalizado",
   "main": "server.js",
   "scripts": {
+    "dev":"nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -25,7 +25,16 @@ async function getMessages() {
   return listMessages;
 }
 
+async function updateMessage(id, text) {
+  const message = await model.findOne({ _id: id });
+  message.message = text;
+  const newMessage = await message.save();
+
+  return newMessage;
+}
+
 module.exports = {
   add: addMessage,
   list: getMessages,
+  updateMessage: updateMessage,
 };
