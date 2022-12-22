@@ -36,8 +36,26 @@ function updateMessage(id, text) {
   });
 }
 
+function deleteMessage(id) {
+  return new Promise((resolve, reject) => {
+    if (!id) {
+      reject("Parámetros inválidos");
+      return false;
+    }
+    store
+      .remove(id)
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
 module.exports = {
   addMessage,
   listMessages,
   updateMessage,
+  deleteMessage,
 };

@@ -56,4 +56,30 @@ router.post("/", (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  controller
+    .deleteMessage(req.params.id)
+    .then((data) => {
+      if (data.deletedCount == 0) {
+        response.error(
+          req,
+          res,
+          500,
+          "mensaje no existe",
+          "Mensaje eliminado previamente"
+        );
+        return false;
+      }
+      response.success(
+        req,
+        res,
+        200,
+        `Mensaje con id: ${req.params.id} fue eliminado`
+      );
+    })
+    .catch((error) => {
+      response.error(req, res, 500, "Error interno", error);
+    });
+});
+
 module.exports = router;
