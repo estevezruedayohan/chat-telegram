@@ -15,7 +15,6 @@ function addMessage(chat, user, message) {
       message,
       date: new Date(),
     };
-    console.log("Mensaje en controller: ", fullMessage);
     store.add(fullMessage);
     resolve(fullMessage);
   });
