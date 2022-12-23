@@ -1,11 +1,12 @@
 const model = require("./model");
 const conexion = require("../../conexion");
 
+conexion("openConnect");
+
 function addMessage(message) {
-  conexion("openConnect");
   const newMessage = new model(message);
   newMessage.save();
-  conexion("closeConnect")();
+  // conexion("closeConnect")();
 }
 
 function getMessages(filter) {

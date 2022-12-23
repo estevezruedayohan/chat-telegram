@@ -6,7 +6,7 @@ const path = require("path");
 
 const router = express.Router();
 const storage = multer.diskStorage({
-  destination: "uploads/",
+  destination: "public/files/",
   filename: function (req, file, cb) {
     const uniqueSuffix =
       Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -20,6 +20,24 @@ const storage = multer.diskStorage({
   },
 });
 const uploads = multer({ storage: storage });
+
+router.post("/", uploads.single("file"), (req, res) => {
+  const { chat, user, message } = req.body;
+  controller
+    .addMessage(chat, user, message, req.file)
+    .then((fullMessage) => {
+      response.success(req, res, 201, fullMessage);
+    })
+    .catch((message) => {
+      response.error(
+        req,
+        res,
+        400,
+        message,
+        "Error en los datos de entrada"
+      );
+    });
+});
 
 router.get("/", (req, res) => {
   const filter = req.query.user || null;
@@ -52,26 +70,6 @@ router.patch("/:id", (req, res) => {
         500,
         error,
         "Error inesperado"
-      );
-    });
-});
-
-router.post("/", uploads.single("file"), (req, res) => {
-  const imagen = req.body.fieldname;
-  console.log(imagen);
-  const { chat, user, message } = req.body;
-  controller
-    .addMessage(chat, user, message)
-    .then((fullMessage) => {
-      response.success(req, res, 201, fullMessage);
-    })
-    .catch((message) => {
-      response.error(
-        req,
-        res,
-        400,
-        message,
-        "Error en los datos de entrada"
       );
     });
 });
