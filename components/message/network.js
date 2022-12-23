@@ -40,8 +40,9 @@ router.patch("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  const { chat, user, message } = req.body;
   controller
-    .addMessage(req.body.user, req.body.message)
+    .addMessage(chat, user, message)
     .then((fullMessage) => {
       response.success(req, res, 201, fullMessage);
     })

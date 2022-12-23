@@ -1,23 +1,33 @@
 const model = require("./model");
-const Connection = require("../../conexion");
-const { config } = require("../../config/config");
+const conexion = require("../../conexion");
 
-const URI = `mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.dbHost}/${config.dbName}`;
-
-Connection(URI);
+conexion("openConnect");
 
 function addMessage(message) {
+  console.log("Mensaje entrante: ", message);
   const newMessage = new model(message);
   newMessage.save();
+  console.log("Mensaje Saliente: ", newMessage);
+  conexion("closeConnect")();
 }
 
-async function getMessages(filter) {
-  let optionsFilter = {};
-  if (filter != null) {
-    optionsFilter = { user: filter };
-  }
-  const listMessages = await model.find(optionsFilter);
-  return listMessages;
+function getMessages(filter) {
+  return new Promise((resolve, reject) => {
+    let optionsFilter = {};
+    if (filter != null) {
+      optionsFilter = { user: filter };
+    }
+    model
+      .find(optionsFilter)
+      .populate("user")
+      .exec((error, populated) => {
+        if (error) {
+          reject(error);
+          return false;
+        }
+        resolve(populated);
+      });
+  });
 }
 
 async function updateMessage(id, text) {

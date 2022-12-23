@@ -1,21 +1,23 @@
 const store = require("./store");
 
-function addMessage(user, message) {
+function addMessage(chat, user, message) {
   return new Promise((resolve, reject) => {
-    if (!user || !message) {
+    if (!user || !message || !chat) {
       console.log(
         "[datos incompletos - error en controler-addMessage]"
       );
       reject("Datos inválidos");
       return false;
     }
-    message = {
+    fullMessage = {
+      chat,
       user,
       message,
       date: new Date(),
     };
-    store.add(message);
-    resolve(message);
+    console.log("Mensaje en controller: ", fullMessage);
+    store.add(fullMessage);
+    resolve(fullMessage);
   });
 }
 
