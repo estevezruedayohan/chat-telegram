@@ -7,10 +7,17 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
+    <link href="./css/socket.css" rel="stylesheet" type="text/css"></link>
     <title>Telegromer - Chat by Socket</title>
   </head>
   <body>
-    <h1>THIS IS THE TELEGRAMER - CHAT BY SOCKET</h1>
+    <h2>THIS IS THE TELEGRAMER - CHAT BY SOCKET</h2>
+
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect("http://localhost:3000", {
@@ -20,5 +27,6 @@
         console.log(data);
       });
     </script>
+    
   </body>
 </html>

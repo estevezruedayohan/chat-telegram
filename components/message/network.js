@@ -1,3 +1,4 @@
+const { config } = require("../../config/config");
 const express = require("express");
 const response = require("../../network/response");
 const controller = require("./controller.js");
@@ -6,7 +7,7 @@ const path = require("path");
 
 const router = express.Router();
 const storage = multer.diskStorage({
-  destination: "public/files/",
+  destination: `public/${config.filesRoute}/`,
   filename: function (req, file, cb) {
     const uniqueSuffix =
       Date.now() + "-" + Math.round(Math.random() * 1e9);
