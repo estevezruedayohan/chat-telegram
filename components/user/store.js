@@ -1,10 +1,4 @@
 const model = require("./model");
-const Connection = require("../../conexion");
-const { config } = require("../../config/config");
-
-const URI = `mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.dbHost}/${config.dbName}`;
-
-Connection(URI);
 
 function addUser(name) {
   const newUser = new model(name);

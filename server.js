@@ -1,8 +1,11 @@
 const express = require("express");
+const app = express();
+
+const conexion = require("./conexion");
 const bodyParser = require("body-parser");
 const router = require("./network/routes");
 
-const app = express();
+conexion("openConnect");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
